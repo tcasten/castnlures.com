@@ -365,23 +365,187 @@
     }
 
     .product-image {
-      background: linear-gradient(135deg, var(--accent), var(--secondary));
-      color: white;
-      padding: 3rem 2rem;
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      padding: 1.5rem;
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: 700;
       position: relative;
       overflow: hidden;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .product-image::before {
-      content: '🎣';
+    .lure-photo {
+      max-width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .product-card:hover .lure-photo {
+      transform: scale(1.1);
+      filter: drop-shadow(0 6px 12px rgba(5, 150, 105, 0.3));
+    }
+
+    .image-placeholder {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+    }
+
+    /* Image loading animation */
+    .lure-photo {
+      opacity: 0;
+      animation: fadeInImage 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeInImage {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Image zoom on hover */
+    .product-image {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .product-image::after {
+      content: '🔍 Click to zoom';
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 3rem;
-      opacity: 0.2;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .product-card:hover .product-image::after {
+      opacity: 1;
+    }
+
+    /* Image zoom modal */
+    .image-zoom-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInModal 0.3s ease;
+    }
+
+    @keyframes fadeInModal {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .zoom-backdrop {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      cursor: zoom-out;
+    }
+
+    .zoomed-image {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: zoomIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .zoom-close {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .zoom-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Premium image effects */
+    .lure-photo.enhanced {
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.2);
+    }
+
+    .product-card.premium-highlight {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(5, 150, 105, 0.15);
+    }
+
+    /* Loading state improvements */
+    .lure-photo[data-loading="true"] {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
     }
 
     .product-content {
@@ -545,6 +709,9 @@
   </style>
 </head>
 <body>
+  <!-- Loading indicator -->
+  <div id="loading-indicator" style="position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; z-index: 9999;"></div>
+  
   <header>
     <div class="container">
       <div class="header-content">
@@ -600,7 +767,10 @@
           
           <article class="product-card">
             <div class="product-badge bestseller">Best Seller</div>
-            <div class="product-image">Rapala DT Series</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop&auto=format" alt="Rapala DT Crankbait" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🐟</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Crankbait</div>
               <h3 class="product-title">Rapala DT (Dives-To) Crankbait</h3>
@@ -625,7 +795,10 @@
 
           <article class="product-card">
             <div class="product-badge premium">Pro Choice</div>
-            <div class="product-image">Strike King Premier Plus</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&h=200&fit=crop&auto=format" alt="Strike King Spinnerbait" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">⚡</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Spinnerbait</div>
               <h3 class="product-title">Strike King Premier Plus Spinnerbait</h3>
@@ -648,7 +821,10 @@
 
           <article class="product-card">
             <div class="product-badge">Tournament</div>
-            <div class="product-image">Booyah Pad Crasher</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1520637836862-4d197d17c15a?w=300&h=200&fit=crop&auto=format" alt="Booyah Frog Lure" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🐸</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Frog</div>
               <h3 class="product-title">Booyah Pad Crasher Frog</h3>
@@ -670,7 +846,10 @@
 
           <article class="product-card">
             <div class="product-badge">Finesse King</div>
-            <div class="product-image">Drop Shot Special</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop&auto=format" alt="Drop Shot Rig Setup" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🎯</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Drop Shot Weight</div>
               <h3 class="product-title">VMC Tokyo Rig Drop Shot Weight</h3>
@@ -692,7 +871,10 @@
 
           <article class="product-card">
             <div class="product-badge premium">Deep Water</div>
-            <div class="product-image">Football Jig Pro</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1563198804-b144dfc1661c?w=300&h=200&fit=crop&auto=format" alt="Football Jig for Bass" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🏈</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Football Jig</div>
               <h3 class="product-title">Strike King Structure Jig</h3>
@@ -714,7 +896,10 @@
 
           <article class="product-card">
             <div class="product-badge">Speed Demon</div>
-            <div class="product-image">ChatterBait Elite</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=300&h=200&fit=crop&auto=format" alt="Z-Man ChatterBait" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">⚡</div>
+            </div>
             <div class="product-content">
               <div class="product-category">ChatterBait</div>
               <h3 class="product-title">Z-Man Original ChatterBait</h3>
@@ -736,7 +921,10 @@
 
           <article class="product-card">
             <div class="product-badge">Shallow Master</div>
-            <div class="product-image">Shallow Crank King</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?w=300&h=200&fit=crop&auto=format" alt="Strike King Red Eye Shad" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🎣</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Shallow Crank</div>
               <h3 class="product-title">Strike King Red Eye Shad</h3>
@@ -758,7 +946,10 @@
 
           <article class="product-card">
             <div class="product-badge">Power Fishing</div>
-            <div class="product-image">Flipping Jig Monster</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1565887585510-70be5adc7642?w=300&h=200&fit=crop&auto=format" alt="Booyah Boo Jig" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🪝</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Flipping Jig</div>
               <h3 class="product-title">Booyah Boo Jig</h3>
@@ -814,7 +1005,10 @@
           
           <article class="product-card">
             <div class="product-badge bestseller">Top Rated</div>
-            <div class="product-image">Williamson Speed Pro</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=300&h=200&fit=crop&auto=format" alt="Williamson Deep Sea Jig" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🌊</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Deep Sea Jig</div>
               <h3 class="product-title">Williamson Speed Pro Deep Jig</h3>
@@ -836,7 +1030,10 @@
 
           <article class="product-card">
             <div class="product-badge premium">Inshore King</div>
-            <div class="product-image">Gulp! Saltwater</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1545450660-42c85687ad82?w=300&h=200&fit=crop&auto=format" alt="Gulp Saltwater Shrimp" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🦐</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Soft Plastic</div>
               <h3 class="product-title">Gulp! Saltwater Shrimp</h3>
@@ -858,7 +1055,10 @@
 
           <article class="product-card">
             <div class="product-badge">Topwater</div>
-            <div class="product-image">Heddon Zara Spook</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop&auto=format" alt="Heddon Super Spook" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">💥</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Surface Lure</div>
               <h3 class="product-title">Heddon Super Spook (Saltwater)</h3>
@@ -957,7 +1157,10 @@
           
           <article class="product-card">
             <div class="product-badge bestseller">Most Popular</div>
-            <div class="product-image">Uncle Jim's Worms</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=300&h=200&fit=crop&auto=format" alt="Red Wiggler Composting Worms" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🪱</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Live Worms</div>
               <h3 class="product-title">Red Wiggler Composting Worms</h3>
@@ -1032,7 +1235,10 @@
           
           <article class="product-card">
             <div class="product-badge bestseller">Classic</div>
-            <div class="product-image">Zoom Trick Worm</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1574781330842-a1fee0d5db9c?w=300&h=200&fit=crop&auto=format" alt="Zoom Trick Worm Soft Plastic" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">🐛</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Finesse Worm</div>
               <h3 class="product-title">Zoom Trick Worm 6.5"</h3>
@@ -1108,7 +1314,10 @@
           
           <article class="product-card">
             <div class="product-badge bestseller">Explosive</div>
-            <div class="product-image">Rebel Pop-R</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1571104508999-893933ded431?w=300&h=200&fit=crop&auto=format" alt="Rebel Pop-R Topwater Popper" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">💥</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Popper</div>
               <h3 class="product-title">Rebel Pop-R Topwater Popper</h3>
@@ -1184,7 +1393,10 @@
           
           <article class="product-card">
             <div class="product-badge bestseller">Ice King</div>
-            <div class="product-image">Rapala Jigging Rap</div>
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop&auto=format" alt="Rapala Jigging Rap Ice Jig" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="image-placeholder" style="display: none;">❄️</div>
+            </div>
             <div class="product-content">
               <div class="product-category">Ice Jig</div>
               <h3 class="product-title">Rapala Jigging Rap W3</h3>
@@ -1783,7 +1995,7 @@
     </div>
   </footer>
   
-  <!-- Enhanced Interaction -->
+  <!-- Enhanced Interaction & Image Loading -->
   <script>
     // Smooth scrolling for navigation links
     document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
@@ -1809,6 +2021,202 @@
             behavior: 'smooth',
             block: 'start'
           });
+        }
+      });
+    });
+    
+    // Enhanced image loading with premium features
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('.lure-photo');
+      
+      // Intersection Observer for lazy loading optimization
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.setAttribute('data-loading', 'true');
+            
+            const tempImg = new Image();
+            tempImg.onload = function() {
+              img.src = this.src;
+              img.removeAttribute('data-loading');
+              img.classList.add('enhanced');
+              observer.unobserve(img);
+            };
+            tempImg.src = img.src;
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '50px'
+      });
+
+      images.forEach(img => {
+        // Observe for lazy loading
+        imageObserver.observe(img);
+
+        img.addEventListener('error', function() {
+          const placeholder = this.nextElementSibling;
+          if (placeholder && placeholder.classList.contains('image-placeholder')) {
+            this.style.display = 'none';
+            placeholder.style.display = 'flex';
+          }
+          
+          // Analytics for failed loads
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'image_error', {
+              event_category: 'performance',
+              event_label: this.alt,
+              value: 1
+            });
+          }
+        });
+        
+        // Enhanced loading animation
+        img.addEventListener('load', function() {
+          this.style.opacity = '0';
+          this.style.transform = 'scale(0.9)';
+          setTimeout(() => {
+            this.style.transition = 'all 0.4s ease';
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1)';
+            this.classList.add('loaded');
+          }, 100);
+          
+          // Track successful loads
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'image_load', {
+              event_category: 'performance',
+              event_label: this.alt,
+              value: 1
+            });
+          }
+        });
+
+        // Click to zoom functionality
+        img.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const modal = document.createElement('div');
+          modal.className = 'image-zoom-modal';
+          modal.innerHTML = `
+            <div class="zoom-backdrop">
+              <img src="${this.src}" alt="${this.alt}" class="zoomed-image">
+              <div class="zoom-close" onclick="this.closest('.image-zoom-modal').remove()">×</div>
+            </div>
+          `;
+          
+          // Close modal on backdrop click
+          modal.querySelector('.zoom-backdrop').addEventListener('click', function(e) {
+            if (e.target === this) {
+              modal.remove();
+            }
+          });
+
+          // Close on escape key
+          const handleEscape = function(e) {
+            if (e.key === 'Escape') {
+              modal.remove();
+              document.removeEventListener('keydown', handleEscape);
+            }
+          };
+          document.addEventListener('keydown', handleEscape);
+          
+          document.body.appendChild(modal);
+          
+          // Track zoom interactions
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'image_zoom', {
+              event_category: 'engagement',
+              event_label: this.alt,
+              value: 1
+            });
+          }
+        });
+      });
+      
+      // Enhanced product card interactions
+      document.querySelectorAll('.product-card').forEach(card => {
+        let hoverTimeout;
+        
+        card.addEventListener('mouseenter', function() {
+          const productTitle = this.querySelector('.product-title');
+          
+          // Add premium highlight after delay
+          hoverTimeout = setTimeout(() => {
+            this.classList.add('premium-highlight');
+          }, 200);
+          
+          // Analytics tracking
+          if (productTitle && typeof gtag !== 'undefined') {
+            gtag('event', 'product_view', {
+              event_category: 'lure_interaction',
+              event_label: productTitle.textContent,
+              value: 1
+            });
+          }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          clearTimeout(hoverTimeout);
+          this.classList.remove('premium-highlight');
+        });
+
+        // Track affiliate clicks
+        const affiliateLinks = card.querySelectorAll('.retailer-link');
+        affiliateLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            const retailer = this.textContent.trim();
+            const productTitle = card.querySelector('.product-title');
+            
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'affiliate_click', {
+                event_category: 'conversion',
+                event_label: `${retailer} - ${productTitle ? productTitle.textContent : 'Unknown'}`,
+                value: 1
+              });
+            }
+          });
+        });
+      });
+
+      // Progressive enhancement for performance
+      setTimeout(() => {
+        images.forEach(img => {
+          if (img.complete && img.naturalHeight > 0) {
+            img.classList.add('enhanced');
+          }
+        });
+      }, 2000);
+
+      // Loading indicator management
+      const loadingIndicator = document.getElementById('loading-indicator');
+      let loadedImages = 0;
+      const totalImages = images.length;
+
+      const updateProgress = () => {
+        loadedImages++;
+        const progress = (loadedImages / totalImages) * 100;
+        loadingIndicator.style.transform = `scaleX(${progress / 100})`;
+        
+        if (loadedImages === totalImages) {
+          setTimeout(() => {
+            loadingIndicator.style.opacity = '0';
+            setTimeout(() => {
+              loadingIndicator.style.display = 'none';
+            }, 300);
+          }, 500);
+        }
+      };
+
+      // Track image loading progress
+      images.forEach(img => {
+        if (img.complete) {
+          updateProgress();
+        } else {
+          img.addEventListener('load', updateProgress);
+          img.addEventListener('error', updateProgress);
         }
       });
     });
