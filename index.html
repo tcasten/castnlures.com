@@ -532,6 +532,223 @@
       box-shadow: 0 20px 40px rgba(5, 150, 105, 0.15);
     }
 
+    /* Extensive Product Showcase System */
+    .extensive-product-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .lure-showcase-item {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(5, 150, 105, 0.2);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(5, 150, 105, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .showcase-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .color-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .color-option {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .color-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(5, 150, 105, 0.2);
+    }
+
+    .lure-detail-photo {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .color-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .color-name {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .color-code {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-family: 'Courier New', monospace;
+    }
+
+    .size-variations {
+      margin-bottom: 3rem;
+    }
+
+    .size-variations h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    .size-option {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .size-option:hover {
+      transform: scale(1.05);
+    }
+
+    .size-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .size-specs {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .detailed-specs {
+      margin-bottom: 2rem;
+    }
+
+    .spec-section h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.1);
+    }
+
+    .specs-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(5, 150, 105, 0.1);
+    }
+
+    .specs-table td:first-child {
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(5, 150, 105, 0.05);
+      width: 30%;
+    }
+
+    .price-range-detailed {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1rem;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(34, 197, 94, 0.1));
+      border-radius: 12px;
+    }
+
+    .extensive-retailers {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .retailer-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .retailer-link-detailed {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: white;
+      border: 2px solid rgba(5, 150, 105, 0.2);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.1);
+    }
+
+    .retailer-link-detailed:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.2);
+    }
+
+    .retailer-name {
+      font-weight: 600;
+    }
+
+    .retailer-price {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Mobile optimizations for extensive showcase */
+    @media (max-width: 768px) {
+      .lure-showcase-item {
+        padding: 2rem 1.5rem;
+      }
+      
+      .color-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+      
+      .size-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .retailer-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Loading state improvements */
     .lure-photo[data-loading="true"] {
       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -763,72 +980,327 @@
           <p class="section-subtitle">Crankbaits, spinnerbaits, jigs, and soft plastics. From finesse to power fishing - catch more bass!</p>
         </div>
         
-        <div class="products-grid">
+        <div class="extensive-product-showcase">
           
-          <article class="product-card">
+          <div class="lure-showcase-item">
             <div class="product-badge bestseller">Best Seller</div>
-            <div class="product-image">
-              <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop&auto=format" alt="Rapala DT Crankbait" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="image-placeholder" style="display: none;">🐟</div>
-            </div>
-            <div class="product-content">
-              <div class="product-category">Crankbait</div>
-              <h3 class="product-title">Rapala DT (Dives-To) Crankbait</h3>
-              <div class="product-price">$8 - $12</div>
-              <ul class="product-features">
-                <li>Precision-weighted for perfect action</li>
-                <li>Balsa wood construction</li>
-                <li>Multiple diving depths available</li>
-                <li>Premium VMC hooks</li>
-                <li>Proven tournament winner</li>
-              </ul>
-              <div class="product-actions">
-                <a href="https://www.amazon.com/s?k=rapala+dt+crankbait&tag=castnfish02-20" target="_blank" class="retailer-link" onclick="trackAffiliateClick('Amazon', 'Rapala DT')">Amazon</a>
-                <a href="https://www.basspro.com/shop/en/search?Ntt=rapala+dt+crankbait" target="_blank" class="retailer-link">Bass Pro</a>
-                <a href="https://www.cabelas.com/search?q=rapala+dt" target="_blank" class="retailer-link">Cabela's</a>
-                <a href="https://www.dickssportinggoods.com/search?searchTerm=rapala+dt" target="_blank" class="retailer-link">Dick's</a>
-                <a href="https://www.walmart.com/search?q=rapala+dt+crankbait" target="_blank" class="retailer-link">Walmart</a>
-                <a href="https://www.ebay.com/sch/i.html?_nkw=rapala+dt+crankbait" target="_blank" class="retailer-link">eBay</a>
+            
+            <h3 class="showcase-title">🐟 Rapala DT (Dives-To) Crankbait Series</h3>
+            
+            <div class="color-gallery">
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop" alt="Rapala DT Fire Tiger Pattern" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Fire Tiger</span>
+                  <span class="color-code">DT-FT</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop" alt="Rapala DT Shad Pattern" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Shad</span>
+                  <span class="color-code">DT-S</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=400&h=300&fit=crop" alt="Rapala DT Chartreuse Shad" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Chartreuse Shad</span>
+                  <span class="color-code">DT-CHS</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1563198804-b144dfc1661c?w=400&h=300&fit=crop" alt="Rapala DT Blue Back Herring" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Blue Back Herring</span>
+                  <span class="color-code">DT-BBH</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1565887585510-70be5adc7642?w=400&h=300&fit=crop" alt="Rapala DT Crawfish Pattern" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Crawfish</span>
+                  <span class="color-code">DT-CRAW</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?w=400&h=300&fit=crop" alt="Rapala DT Perch Pattern" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Perch</span>
+                  <span class="color-code">DT-P</span>
+                </div>
               </div>
             </div>
-          </article>
 
-          <article class="product-card">
+            <div class="size-variations">
+              <h4>📐 Available Sizes & Diving Depths</h4>
+              <div class="size-grid">
+                <div class="size-option">
+                  <div class="size-name">DT4</div>
+                  <div class="size-specs">2" | 1/4 oz | 4 ft</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">DT6</div>
+                  <div class="size-specs">2.5" | 5/16 oz | 6 ft</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">DT10</div>
+                  <div class="size-specs">2.75" | 3/8 oz | 10 ft</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">DT14</div>
+                  <div class="size-specs">3" | 1/2 oz | 14 ft</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">DT16</div>
+                  <div class="size-specs">3.25" | 5/8 oz | 16 ft</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">DT20</div>
+                  <div class="size-specs">3.5" | 3/4 oz | 20 ft</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detailed-specs">
+              <div class="spec-section">
+                <h4>🔧 Technical Specifications</h4>
+                <table class="specs-table">
+                  <tr><td>Construction</td><td>Premium Balsa Wood Body</td></tr>
+                  <tr><td>Hooks</td><td>VMC Black Nickel Trebles (#6)</td></tr>
+                  <tr><td>Action</td><td>Tight Wobble with Aggressive Flash</td></tr>
+                  <tr><td>Best Retrieve</td><td>Steady 2-3 mph Trolling Speed</td></tr>
+                  <tr><td>Line Recommendation</td><td>8-12 lb Fluorocarbon or Monofilament</td></tr>
+                  <tr><td>Target Species</td><td>Largemouth Bass, Smallmouth Bass, Walleye, Northern Pike</td></tr>
+                  <tr><td>Best Conditions</td><td>Stained Water, Rocky Points, Drop-offs</td></tr>
+                  <tr><td>Warranty</td><td>Rapala Limited Lifetime Warranty</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="price-range-detailed">💰 $8.99 - $14.99 (varies by size & retailer)</div>
+            
+            <div class="extensive-retailers">
+              <div class="retailer-row">
+                <a href="https://www.amazon.com/s?k=rapala+dt+crankbait&tag=castnfish02-20" target="_blank" class="retailer-link-detailed amazon" onclick="trackAffiliateClick('Amazon', 'Rapala DT')">
+                  <span class="retailer-name">🛒 Amazon Prime</span>
+                  <span class="retailer-price">$8.99+</span>
+                </a>
+                <a href="https://www.basspro.com/shop/en/search?Ntt=rapala+dt+crankbait" target="_blank" class="retailer-link-detailed basspro">
+                  <span class="retailer-name">🐟 Bass Pro Shops</span>
+                  <span class="retailer-price">$9.99+</span>
+                </a>
+                <a href="https://www.cabelas.com/search?q=rapala+dt" target="_blank" class="retailer-link-detailed cabelas">
+                  <span class="retailer-name">🏪 Cabela's</span>
+                  <span class="retailer-price">$9.99+</span>
+                </a>
+              </div>
+              <div class="retailer-row">
+                <a href="https://www.dickssportinggoods.com/search?searchTerm=rapala+dt" target="_blank" class="retailer-link-detailed dicks">
+                  <span class="retailer-name">⚾ Dick's Sporting</span>
+                  <span class="retailer-price">$10.99+</span>
+                </a>
+                <a href="https://www.walmart.com/search?q=rapala+dt+crankbait" target="_blank" class="retailer-link-detailed walmart">
+                  <span class="retailer-name">🏬 Walmart</span>
+                  <span class="retailer-price">$8.99+</span>
+                </a>
+                <a href="https://www.ebay.com/sch/i.html?_nkw=rapala+dt+crankbait" target="_blank" class="retailer-link-detailed ebay">
+                  <span class="retailer-name">🔍 eBay</span>
+                  <span class="retailer-price">$7.99+</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="lure-showcase-item">
             <div class="product-badge premium">Pro Choice</div>
-            <div class="product-image">
-              <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&h=200&fit=crop&auto=format" alt="Strike King Spinnerbait" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="image-placeholder" style="display: none;">⚡</div>
-            </div>
-            <div class="product-content">
-              <div class="product-category">Spinnerbait</div>
-              <h3 class="product-title">Strike King Premier Plus Spinnerbait</h3>
-              <div class="product-price">$6 - $10</div>
-              <ul class="product-features">
-                <li>Perfect head design for balance</li>
-                <li>Premium silicone skirt</li>
-                <li>Sharp Gamakatsu hook</li>
-                <li>Multiple blade configurations</li>
-                <li>Exclusive Perfect Skirt technology</li>
-              </ul>
-              <div class="product-actions">
-                <a href="https://www.amazon.com/s?k=strike+king+premier+plus+spinnerbait&tag=castnfish02-20" target="_blank" class="retailer-link">Amazon</a>
-                <a href="https://www.basspro.com/shop/en/search?Ntt=strike+king+premier+plus" target="_blank" class="retailer-link">Bass Pro</a>
-                <a href="https://www.cabelas.com/search?q=strike+king+spinnerbait" target="_blank" class="retailer-link">Cabela's</a>
-                <a href="https://www.dickssportinggoods.com/search?searchTerm=strike+king+spinnerbait" target="_blank" class="retailer-link">Dick's</a>
+            
+            <h3 class="showcase-title">⚡ Strike King Premier Plus Spinnerbait Collection</h3>
+            
+            <div class="color-gallery">
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop" alt="Strike King White Spinnerbait" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">White</span>
+                  <span class="color-code">PP3/8-613</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1565887585510-70be5adc7642?w=400&h=300&fit=crop" alt="Strike King Chart/White Spinnerbait" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Chart/White</span>
+                  <span class="color-code">PP3/8-615</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=400&h=300&fit=crop" alt="Strike King Blue/White Spinnerbait" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Blue/White</span>
+                  <span class="color-code">PP3/8-623</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop" alt="Strike King Black/Blue Spinnerbait" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Black/Blue</span>
+                  <span class="color-code">PP3/8-601</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1563198804-b144dfc1661c?w=400&h=300&fit=crop" alt="Strike King Sexy Shad Spinnerbait" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Sexy Shad</span>
+                  <span class="color-code">PP3/8-670</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?w=400&h=300&fit=crop" alt="Strike King Fire Tiger Spinnerbait" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Fire Tiger</span>
+                  <span class="color-code">PP3/8-652</span>
+                </div>
               </div>
             </div>
-          </article>
 
-          <article class="product-card">
-            <div class="product-badge">Tournament</div>
-            <div class="product-image">
-              <img src="https://images.unsplash.com/photo-1520637836862-4d197d17c15a?w=300&h=200&fit=crop&auto=format" alt="Booyah Frog Lure" class="lure-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="image-placeholder" style="display: none;">🐸</div>
+            <div class="size-variations">
+              <h4>⚖️ Weights & Blade Configurations</h4>
+              <div class="size-grid">
+                <div class="size-option">
+                  <div class="size-name">1/4 oz</div>
+                  <div class="size-specs">Single Colorado | Shallow</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">3/8 oz</div>
+                  <div class="size-specs">Tandem Willow | Versatile</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">1/2 oz</div>
+                  <div class="size-specs">Colorado/Willow | Deep</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">3/4 oz</div>
+                  <div class="size-specs">Double Willow | Fast/Deep</div>
+                </div>
+              </div>
             </div>
-            <div class="product-content">
-              <div class="product-category">Frog</div>
-              <h3 class="product-title">Booyah Pad Crasher Frog</h3>
-              <div class="product-price">$7 - $11</div>
+
+            <div class="detailed-specs">
+              <div class="spec-section">
+                <h4>🎯 Performance Specifications</h4>
+                <table class="specs-table">
+                  <tr><td>Hook</td><td>Premium Gamakatsu Wide Gap</td></tr>
+                  <tr><td>Skirt Technology</td><td>Perfect Skirt® Silicone</td></tr>
+                  <tr><td>Blade Material</td><td>Hammered Nickel/Gold</td></tr>
+                  <tr><td>Head Design</td><td>Balanced Football Head</td></tr>
+                  <tr><td>Line Recommendation</td><td>12-17 lb Fluorocarbon</td></tr>
+                  <tr><td>Best Retrieve</td><td>Slow Roll or Steady Retrieve</td></tr>
+                  <tr><td>Target Species</td><td>Largemouth Bass, Smallmouth Bass, Pike</td></tr>
+                  <tr><td>Ideal Conditions</td><td>Stained Water, Wind, Cover</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="price-range-detailed">💰 $6.99 - $10.99 (varies by weight & configuration)</div>
+            
+            <div class="extensive-retailers">
+              <div class="retailer-row">
+                <a href="https://www.amazon.com/s?k=strike+king+premier+plus+spinnerbait&tag=castnfish02-20" target="_blank" class="retailer-link-detailed amazon" onclick="trackAffiliateClick('Amazon', 'Strike King Premier Plus')">
+                  <span class="retailer-name">🛒 Amazon Prime</span>
+                  <span class="retailer-price">$6.99+</span>
+                </a>
+                <a href="https://www.basspro.com/shop/en/search?Ntt=strike+king+premier+plus" target="_blank" class="retailer-link-detailed basspro">
+                  <span class="retailer-name">🐟 Bass Pro Shops</span>
+                  <span class="retailer-price">$7.99+</span>
+                </a>
+                <a href="https://www.cabelas.com/search?q=strike+king+spinnerbait" target="_blank" class="retailer-link-detailed cabelas">
+                  <span class="retailer-name">🏪 Cabela's</span>
+                  <span class="retailer-price">$7.99+</span>
+                </a>
+              </div>
+              <div class="retailer-row">
+                <a href="https://www.dickssportinggoods.com/search?searchTerm=strike+king+spinnerbait" target="_blank" class="retailer-link-detailed dicks">
+                  <span class="retailer-name">⚾ Dick's Sporting</span>
+                  <span class="retailer-price">$8.99+</span>
+                </a>
+                <a href="https://www.walmart.com/search?q=strike+king+spinnerbait" target="_blank" class="retailer-link-detailed walmart">
+                  <span class="retailer-name">🏬 Walmart</span>
+                  <span class="retailer-price">$6.99+</span>
+                </a>
+                <a href="https://www.ebay.com/sch/i.html?_nkw=strike+king+premier+plus+spinnerbait" target="_blank" class="retailer-link-detailed ebay">
+                  <span class="retailer-name">🔍 eBay</span>
+                  <span class="retailer-price">$5.99+</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="lure-showcase-item">
+            <div class="product-badge">Tournament</div>
+            
+            <h3 class="showcase-title">🐸 Booyah Pad Crasher Frog Series</h3>
+            
+            <div class="color-gallery">
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1520637836862-4d197d17c15a?w=400&h=300&fit=crop" alt="Booyah Frog Pad Crasher Bull Frog" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Bull Frog</span>
+                  <span class="color-code">BYPCF-BF</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Booyah Frog Leopard Pattern" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Leopard Frog</span>
+                  <span class="color-code">BYPCF-LF</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1574781330842-a1fee0d5db9c?w=400&h=300&fit=crop" alt="Booyah Frog Green Pumpkin" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Green Pumpkin</span>
+                  <span class="color-code">BYPCF-GP</span>
+                </div>
+              </div>
+              <div class="color-option">
+                <img src="https://images.unsplash.com/photo-1571104508999-893933ded431?w=400&h=300&fit=crop" alt="Booyah Frog White" class="lure-detail-photo">
+                <div class="color-info">
+                  <span class="color-name">Pearl White</span>
+                  <span class="color-code">BYPCF-PW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="size-variations">
+              <h4>🎯 Available Sizes</h4>
+              <div class="size-grid">
+                <div class="size-option">
+                  <div class="size-name">2.25"</div>
+                  <div class="size-specs">1/2 oz | Standard</div>
+                </div>
+                <div class="size-option">
+                  <div class="size-name">2.5"</div>
+                  <div class="size-specs">5/8 oz | Large</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detailed-specs">
+              <div class="spec-section">
+                <h4>🛠️ Frog Specifications</h4>
+                <table class="specs-table">
+                  <tr><td>Body Material</td><td>Soft Hollow Body</td></tr>
+                  <tr><td>Hooks</td><td>Double Wide Gap Weedless</td></tr>
+                  <tr><td>Action</td><td>Walking/Popping Topwater</td></tr>
+                  <tr><td>Best Technique</td><td>Walk-the-Dog or Pop-Stop</td></tr>
+                  <tr><td>Line Recommendation</td><td>50-65 lb Braided Line</td></tr>
+                  <tr><td>Target Cover</td><td>Lily Pads, Grass Mats, Timber</td></tr>
+                  <tr><td>Best Season</td><td>Spring through Fall</td></tr>
+                  <tr><td>Hook Setting</td><td>Wait for the Fish to Turn Down</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="price-range-detailed">💰 $7.99 - $11.99</div>
               <ul class="product-features">
                 <li>Hollow body design</li>
                 <li>Weedless hook configuration</li>
