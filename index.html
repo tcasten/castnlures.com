@@ -59,6 +59,26 @@
       font-size: 14px;
     }
 
+    .page-title {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .page-title h1 {
+      font-size: 32px;
+      color: #333;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+    }
+
+    .page-title p {
+      font-size: 16px;
+      color: #666;
+      margin: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     .filters {
       text-align: center;
       margin-bottom: 20px;
@@ -100,68 +120,97 @@
       background: white;
       border: 1px solid #e0e0e0;
       border-radius: 8px;
-      overflow: hidden;
+      padding: 15px;
       transition: box-shadow 0.2s;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .product:hover {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .product-image {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #f8f9fa;
+      height: 200px;
+      object-fit: contain;
+      background: #fafafa;
       cursor: pointer;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 15px;
     }
 
     .product-info {
-      padding: 12px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .product-title {
       font-size: 14px;
       color: #333;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
       line-height: 1.3;
-      height: 40px;
-      overflow: hidden;
+      min-height: 42px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .price-info {
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      text-align: center;
     }
 
     .retail-price {
-      color: #999;
+      color: #666;
       text-decoration: line-through;
-      font-size: 12px;
-      margin-right: 8px;
+      font-size: 13px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .retail-price:before {
+      content: "Retail: ";
+      font-weight: 500;
     }
 
     .our-price {
       color: #d73527;
       font-weight: bold;
       font-size: 16px;
+      display: block;
+    }
+
+    .our-price:before {
+      content: "Our Price: ";
+      font-weight: 500;
+      color: #333;
     }
 
     .lowest-price-badge {
-      background: #e8f5e8;
-      color: #137333;
+      background: #ff6b35;
+      color: white;
       padding: 4px 8px;
       border-radius: 4px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: inline-block;
+      text-transform: uppercase;
     }
 
     .rating {
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin-bottom: 10px;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 15px;
     }
 
     .stars {
@@ -169,14 +218,20 @@
       font-size: 14px;
     }
 
+    .rating-text {
+      color: #333;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
     .review-count {
       color: #666;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .buy-btn {
       width: 100%;
-      background: #ff9500;
+      background: #0066cc;
       color: white;
       border: none;
       padding: 8px;
@@ -204,11 +259,16 @@
 </head>
 <body>
   <div class="header">
-    <div class="logo">🎣 CastNLures</div>
+    <div class="logo">🎣 CastNLures - Discount Fishing Tackle</div>
     <div class="search-bar">
-      <input type="text" class="search-input" id="searchInput" placeholder="Search fishing lures..." autocomplete="off">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search fishing baits & lures..." autocomplete="off">
       <button class="search-btn" onclick="search()">Search</button>
     </div>
+  </div>
+
+  <div class="page-title">
+    <h1>Fishing Baits & Lures</h1>
+    <p>Get the lowest prices on premium fishing tackle. Save big on the best lures from top brands!</p>
   </div>
 
   <div class="filters">
@@ -687,17 +747,17 @@
         productDiv.innerHTML = `
           <img src="${product.image}" alt="${product.name}" class="product-image" onclick="window.open('${product.url}', '_blank')">
           <div class="product-info">
-            ${savings ? `<div class="lowest-price-badge">Save $${savings}</div>` : '<div class="lowest-price-badge">LOWEST PRICE</div>'}
+            ${savings && savings > 0 ? `<div class="lowest-price-badge">Save $${savings}</div>` : ''}
             <div class="product-title">${product.name}</div>
             <div class="price-info">
-              ${product.retailPrice ? `<span class="retail-price">Retail: $${product.retailPrice}</span>` : ''}
-              <span class="our-price">$${product.ourPrice}</span>
+              ${product.retailPrice ? `<div class="retail-price">$${product.retailPrice.toFixed(2)} USD</div>` : ''}
+              <div class="our-price">$${product.ourPrice.toFixed(2)} USD</div>
             </div>
             <div class="rating">
               <span class="stars">${generateStars(product.rating)}</span>
-              <span class="review-count">${product.reviews} Reviews</span>
+              <span class="rating-text">${product.rating} out of 5.0 stars</span>
             </div>
-            <button class="buy-btn" onclick="window.open('${product.url}', '_blank')">Buy Now</button>
+            <button class="buy-btn" onclick="window.open('${product.url}', '_blank')">Add to Cart</button>
           </div>
         `;
         grid.appendChild(productDiv);
